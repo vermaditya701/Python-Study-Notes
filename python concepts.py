@@ -1969,6 +1969,18 @@
 #? In this example, the MathOperations class has two add() methods with different parameters. However, Python does not support method overloading in the traditional sense. The second definition of add() overwrites the first one. Therefore, when add() is called with two arguments, it will result in a TypeError because the method expects three arguments.
 #? It occurs at compile-time & is a compile-time polymorphism.
 
+#example:
+# class Calculator:
+#     def multiply(self, a, b, *args):
+#         result = a * b
+#         for n in args:
+#             result *= n
+#         return result
+
+# cal = Calculator()
+# print(cal.multiply(2, 3))
+# print(cal.multiply(2, 3, 4, 5))   
+
 
 
 # #todo: Mangling:
@@ -1995,27 +2007,323 @@
 #static method: validate_config(config_dict)
 #instance method: display_config() 
 
-class AppConfig:
-    app_name = "LPU TOUCH"  # class variable
+# class AppConfig:
+#     app_name = "LPU TOUCH"  # class variable
 
-    def __init__(self, config):
-        self.config = config  # instance variable
+#     def __init__(self, config):
+#         self.config = config  # instance variable
 
-    @classmethod
-    def load_defaults(cls):
-        return cls({"testing": "done", "version":"1.3"})
+#     @classmethod
+#     def load_defaults(cls):
+#         return cls({"testing": "done", "version":"1.3"})
     
-    @staticmethod
-    def validate_config(config):
-       return "version" in config and "testing" in config
+#     @staticmethod
+#     def validate_config(config):
+#        return "version" in config and "testing" in config
 
-    def display_config(self):
-        return self.config
+#     def display_config(self):
+#         return self.config
     
-# Test the AppConfig class
-con = AppConfig.load_defaults()
-print(AppConfig.validate_config(con.config))  #O/p: True
-print(con.display_config())  #O/p: {'testing': 'done', 'version': '1.3'}
+# # Test the AppConfig class
+# con = AppConfig.load_defaults()
+# print(AppConfig.validate_config(con.config))  #O/p: True
+# print(con.display_config())  #O/p: {'testing': 'done', 'version': '1.3'}
+
+
+# #todo: Assignment2: Method Overriding(Runtime Polymorphism)
+# Problem Statement: Notification System
+# Design a base class Notification
+# Method: send(message)
+#child classes:
+# 1. EmailNotification
+# 2. SMSNotification
+#each child overrides send() method
+
+# class Notification:
+#     def send(self, message):
+#         return f"Notification: {message}"
+
+# class EmailNotification(Notification): 
+#     def send(self, message): 
+#         return f"Email sent: {message}"
+
+# class SMSNotification(Notification):
+#     def send(self, message):
+#         return f"SMS sent: {message}"
+
+
+# message = Notification()
+# email = EmailNotification()
+# sms = SMSNotification()
+# print(message.send("Hello! This is a notification."))   #?.send() is used to call the send method of the respective class
+# print(email.send("Hello! This is a notification."))
+# print(sms.send("Hello! This is a notification."))
+
+
+
+# #todo: Problem Statement: Shape Area Calculator
+#create a base class Shape
+#Method: area()
+#child classes:
+# 1. Rectangle & circle
+#call area() on different objects using same interface
+
+# import math
+
+# class Shape:
+#     def area(self):
+#         pass
+
+# class Rectangle(Shape):
+#     def __init__(self, length, width): #?variable are declared inside __init__ method are called instance variables
+#         self.length = length
+#         self.width = width
+    
+#     def area(self):
+#         rect_area = self.length * self.width
+#         return f"Area of Rectangle: {rect_area}"
+
+# class Circle(Shape):
+#     def __init__(self, radius):   #?variable are declared inside __init__ method are called instance variables
+#         self.radius = radius
+    
+#     def area(self):
+#         circle_area = math.pi * pow(self.radius,2)
+#         return f"Area of Circle: {circle_area:.2f}"
+
+# # Test the Shape classes
+# rect = Rectangle(5, 4)
+# circ = Circle(3)
+# print(rect.area())
+# print(circ.area())
+
+
+# #todo: Example:  
+# class Emp:
+#     def __init__(self,fname,lname,sal):
+#         self.fname = fname
+#         self.lname = lname
+#         self.sal = sal
+#         self.email = fname + "." + lname + "@lpu.com"
+    
+# johan = Emp("Johan","David",50000)
+# ritik = Emp("Ritik","Kumar",60000)
+# print(ritik.email)
+# ritik.lname = "Singh"
+# print(ritik.email)  #?email will not change because it was created during the initialization and is not dynamically linked to the fname and lname attributes.
+
+# #?To make email dynamic, we can use a property decorator
+# @property    #?property decorator is used to define a method as a property, allowing you to access it like an attribute.
+# def email(self):
+#     return f"{self.fname}.{self.lname}@lpu.com"
+
+# Emp.email = email  #?adding the email property to the Emp class
+# print(ritik.email)
+# ritik.lname = "Sharma"
+# print(ritik.email)
+
+
+# #todo: Assignment 5: Property Decorator(@property) - Data Protection
+#Problem Statement: User Account Balance
+#create class BankAccount
+#Requirements:
+# Attribute is balance
+# @property balance ->getter
+# @balance.setter ->prevent negative balance
+
+# class BankAccount:
+#     def __init__(self, balance):
+#         self.balance = balance  # This will use the setter to validate
+
+#     @property
+#     def balance(self):
+#         return self._balance
+
+#     @balance.setter    #?setter decorator is used to define a method that sets the value of a property.
+#     def balance(self, amount):
+#         if amount < 0:
+#             print("Error: Balance cannot be negative.")
+#             self._balance = 0
+#         else:
+#             self._balance = amount
+
+# acc = BankAccount(1000)
+# print(acc.balance)  # Output: 1000
+# acc1 = BankAccount(-500)  # Will print error and set balance to 0
+# print(acc1.balance)  # Output: 0
+
+
+# #todo: Assignment 6: Setter & Deleter (Security Critical)
+#Problem Statement: Employee Salary Protection
+# create class Employee
+#Requirements:
+# salary is an attribute 
+#setter: salary must be >= minimum wage 
+#deleter: prevent deletion of salary directly
+
+# class Employee:
+#     MIN_WAGE = 20000 # Class variable for minimum wage
+
+#     def __init__(self, salary):
+#         self.salary = salary  # This will use the setter to validate
+
+#     @property  
+#     def salary(self):
+#         return self._salary
+
+#     @salary.setter 
+#     def salary(self, amount):
+#         if amount < self.MIN_WAGE:
+#             print(f"Salary cannot be less than minimum wage of {self.MIN_WAGE}.")
+#             self._salary = self.MIN_WAGE
+#         else:
+#             self._salary = amount
+
+#     @salary.deleter
+#     def salary(self):
+#         print("Direct deletion of salary is not allowed.")
+
+# emp = Employee(25000)
+# print(emp.salary)  # Output: 25000
+# emp.salary = 15000  # Will print error and set salary to minimum wage
+# print(emp.salary)  # Output: 20000
+# del emp.salary  # Will print error message
+
+
+# #todo: Assignment 7: Combined Inheritance & Property(placement Grade)
+#Problem Statement: Product pricing  System
+# base class: product
+#child class: DiscountedProduct
+
+# class product:
+#     def __init__(self,price):
+#         self.price = price
+#     @property
+#     def final_price(self):
+#         return self.price
+
+# class DiscountedProduct(product):
+#     def __init__(self,price,discount):
+#         super().__init__(price)
+#         self.discount = discount
+    
+#     @property
+#     def final_price(self):
+#         return self.price - (self.price * self.discount/100)
+    
+# p1 = DiscountedProduct(1000,30)
+# print(p1.final_price) #O/p: 700.0
+
+
+# #todo: DUCK TYPING
+#?Duck typing is a concept in programming, particularly in dynamically typed languages like Python, where the type or class of an object is determined by the methods and properties it has, rather than its actual class or inheritance hierarchy. The idea is summarized by the saying "If it looks like a duck and quacks like a duck, it's a duck."
+#Example:
+# class Dog:
+#     def speak(self):
+#         return "Woof!"
+    
+# class Cat:
+#     def speak(self):
+#         return "Meow!"
+
+# def animal_sound(animal):
+#     print(animal.speak())
+
+# dog = Dog()
+# cat = Cat()
+
+# animal_sound(dog)  # Output: Woof!
+# animal_sound(cat)  # Output: Meow!
+
+# from abc import ABC, abstractmethod #? abc module is used to create abstract base classes in Python.
+
+# class PayementGateway(ABC):   #?ABC is the base class for defining Abstract Base Classes in Python.
+#     @abstractmethod
+#     def pay(self):
+#         pass
+
+# class phonepay(PayementGateway):
+#     def pay(self):
+#         print("Payment done by PhonePay")
+
+# class Paypal:
+#     def payment(self):
+#         print("Payment done by Paypal")
+
+# class purchase:
+#     def __init__(self,gateway):
+#         self.gateway = gateway
+
+#     def checkout(self):
+#         print("Checked out")
+#         self.gateway.pay()   #? here pay() method is called on gateway object, which is expected to have a pay() method.
+
+# p1 = phonepay()
+# p2 = Paypal()
+# pur = purchase(p1)
+# pur2 = purchase(p2)
+# pur.checkout()
+
+# #todo: Assignment 3: Database Layer Abstraction(Backend Favourite)
+#Problem Statement: Design an abstract database layer.
+# Requirements:
+# Abstract Class: Database
+# Abstract Methods: connect(), fetch(), close()
+# Implementations:
+# 1. MySQLDatabase
+# 2. MongoDBDatabase
+
+from abc import ABC, abstractmethod
+class Database(ABC):
+    @abstractmethod
+    def connect(self):
+        pass
+
+    @abstractmethod
+    def fetch(self, query):
+        pass
+
+    @abstractmethod
+    def close(self):
+        pass
+
+class MySQLDatabase(Database):
+    def connect(self):
+        print("Connected to MySQL Database")
+
+    def fetch(self, query):
+        print(f"Fetching data from MySQL with query: {query}")
+
+    def close(self):
+        print("MySQL Database connection closed")
+
+class MongoDBDatabase(Database):
+    def connect(self):
+        print("Connected to MongoDB Database")
+
+    def fetch(self, query):
+        print(f"Fetching data from MongoDB with query: {query}")
+
+    def close(self):
+        print("MongoDB Database connection closed")
+
+# Test the Database implementations
+mysql_db = MySQLDatabase()
+mysql_db.connect()
+mysql_db.fetch("SELECT * FROM users")
+mysql_db.close()
+mongo_db = MongoDBDatabase()
+mongo_db.connect()
+mongo_db.fetch("{ find: 'users' }")
+mongo_db.close()
+
+
+            
+
+
+
+
+
 
 
 

@@ -624,13 +624,51 @@ Optimization	❌ No	✅ Yes (in some languages)
 
 
 
-10\)
+10\)🔹 What is self in Python?
+
+👉 self represents the current object (instance) of a class.
+
+In simple words:
+
+self lets a method know which object is calling it.
+
+class Student:
+    def set_name(self, name):
+        self.name = name
 
 
 
 
+11)@property 
+it lets you access a method like an attribute.
+
+@property is used to control access to instance variables while providing attribute-like syntax.
+
+ex-When u want read-only attributes 
+
+class Circle:
+    def __init__(self, r):
+        self._r = r
+
+    @property
+    def radius(self):
+        return self._r
 
 
 
 
+ex- when u need validation while setting values
 
+class Student:
+    def __init__(self, marks):
+        self._marks = marks
+
+    @property
+    def marks(self):
+        return self._marks
+
+    @marks.setter
+    def marks(self, value):
+        if value < 0:
+            raise ValueError("Marks cannot be negative")
+        self._marks = value
