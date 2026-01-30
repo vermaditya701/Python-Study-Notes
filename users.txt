@@ -1,3 +1,0 @@
-101,Amit,amit@gmail.com
-102,Neha,neha@gmail.com
-103,Ravi,ravi@gmail.com

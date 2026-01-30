@@ -2345,27 +2345,27 @@
 #?The 'with' statement automatically handles closing the file for you, even if an error occurs while working with the file.
 
 #example:
-# with open("sample.txt", "w") as f:     #?this will create a file named sample.txt in write mode
+# with open("file handling\\sample.txt", "w") as f:     #?this will create a file named sample.txt in write mode
 #     f.write("This is a sample file.\nIt contains multiple lines of text.")
-# with open("sample.txt", "r") as f:
+# with open("file handling\\sample.txt", "r") as f:
 #     content = f.read()
 #     print(content)
 
 
-# file = open('sample.txt','r')
+# file = open('file handling\\sample.txt','r')   #\\ to escape the backslash
 # content = file.read()
 # print(content)
 # file.close()
 
-# file = open('sample.txt','a')  #?append mode
+# file = open('file handling\\sample.txt','a')  #?append mode
 # file.write("\nThis line is appended to the file.")
 # file.close()
 
-# file = open('sample.txt','w') #?write mode
+# file = open('file handling\\sample.txt','w') #?write mode
 # file.write("This will overwrite the existing content.")
 # file.close()
 
-# file = open('sample.txt','r') 
+# file = open('file handling\\sample.txt','r') 
 # content = file.read()
 # print(content)  
 
@@ -2375,7 +2375,7 @@
 #todo: rb mode:
 #?In Python, 'rb' mode stands for "read binary" mode. It is used when you want to read binary files, such as images, audio files, or any other non-text files. When you open a file in 'rb' mode, the data is read as raw bytes, which is essential for binary files to ensure that the data is not altered during the reading process.
 
-# file = open("Gemini_generated.png",'rb')   #?open the binary file in read binary mode
+# file = open("file handling\\Gemini_generated.png",'rb')   #?open the binary file in read binary mode
 # print(file.read())
 
 #this will not open the img file in a viewable format, it will display the binary data of the file. To view the image, you would typically use an image viewer or a library that can handle image files, such as PIL (Pillow) in Python.
@@ -2384,7 +2384,7 @@
 #todo: wb mode:
 #?In Python, 'wb' mode stands for "write binary" mode. It is used when you want to write binary data to a file, such as images, audio files, or any other non-text files. When you open a file in 'wb' mode, the data is written as raw bytes, which is essential for binary files to ensure that the data is not altered during the writing process.
 
-# f1 = open('new_img.png',"wb")
+# f1 = open('file handling\\new_img.png',"wb")
 # for i in file:
 #     f1.write(i)
 
@@ -2405,10 +2405,10 @@
 #3 Display each user record line by line'
 #4 Ensure the file is properly closed 
 
-# file = open('users.txt','w')
+# file = open('file handling\\users.txt','w')
 # file.write("101,Amit,amit@gmail.com\n102,Neha,neha@gmail.com\n103,Ravi,ravi@gmail.com")
 # file.close()
-# file = open('users.txt','r')   #1
+# file = open('file handling\\users.txt','r')   #1
 # content = file.read()          #2
 # for line in content.split('\n'):  #3     #?line is used to iterate through each line of the content
 #     print(line)  # Display each user record line by line
@@ -2432,11 +2432,11 @@
 
 # total_log = 0
 # error_log = 0
-# file = open('server.log','w')
+# file = open('file handling\\server.log','w')
 # file.write("INFO: Request received\nERROR: Database connection failed\nINFO: Request processed successfully\nERROR: Timeout occurred")
 # file.close()
 
-# file = open('server.log','r')   #1
+# file = open('file handling\\server.log','r')   #1
 # for line in file:                #1
 #     total_log += 1               #2a
 #     if "ERROR" in line:          #2b
@@ -2458,7 +2458,7 @@
 #3 Each student record should be on a new line
 #4 If the file already exists, it should be overwritten with new data
 
-# with open('students.txt','a') as file:   #3 (append new records)
+# with open('file handling\\students.txt','a') as file:   #3 (append new records)
 #     count = int(input("How many students to register? "))
 #     for _ in range(count):  
 #         user = input("Enter Student ID, Name, Course : ") 
@@ -2474,7 +2474,7 @@
 #3 Add a timestamp before each feedback entry
 
 from datetime import datetime
-with open('feedback.txt','a') as file:
+with open('file handling\\feedback.txt','a') as file:
     feedback = input("Enter your feedback: ")
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     file.write(f"{timestamp} - {feedback}\n")
