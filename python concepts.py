@@ -1345,7 +1345,7 @@
 
 
 
-#?====================================================OOPS Concepts=====================================================
+#?============================================OOPSConcepts===================================================
 
 # #todo: OOPS Concepts in Python
 # #?Class: A class is a blueprint for creating objects. It defines attributes (data) and methods (functions) that the objects created from the class will have.
@@ -1799,7 +1799,7 @@
 # c.show()      # Calling show() from class C 
 
 
-##todo: inheritence type: single, multiple, multilevel, hierarchical, hybrid
+##todo:============== inheritence type: single, multiple, multilevel, hierarchical, hybrid=====================
 
 #?single inheritance      #1 child & 1 parent
 # class A:
@@ -2273,59 +2273,210 @@
 # 1. MySQLDatabase
 # 2. MongoDBDatabase
 
-from abc import ABC, abstractmethod
-class Database(ABC):
-    @abstractmethod
-    def connect(self):
-        pass
 
-    @abstractmethod
-    def fetch(self, query):
-        pass
+# from abc import ABC, abstractmethod
+# class Database(ABC):
+#     @abstractmethod
+#     def connect(self):
+#         pass
 
-    @abstractmethod
-    def close(self):
-        pass
+#     @abstractmethod
+#     def fetch(self, query):
+#         pass
 
-class MySQLDatabase(Database):
-    def connect(self):
-        print("Connected to MySQL Database")
+#     @abstractmethod
+#     def close(self):
+#         pass
 
-    def fetch(self, query):
-        print(f"Fetching data from MySQL with query: {query}")
+# class MySQLDatabase(Database):
+#     def connect(self):
+#         print("Connected to MySQL Database")
 
-    def close(self):
-        print("MySQL Database connection closed")
+#     def fetch(self, query):
+#         print(f"Fetching data from MySQL with query: {query}")
 
-class MongoDBDatabase(Database):
-    def connect(self):
-        print("Connected to MongoDB Database")
+#     def close(self):
+#         print("MySQL Database connection closed")
 
-    def fetch(self, query):
-        print(f"Fetching data from MongoDB with query: {query}")
+# class MongoDBDatabase(Database):
+#     def connect(self):
+#         print("Connected to MongoDB Database")
 
-    def close(self):
-        print("MongoDB Database connection closed")
+#     def fetch(self, query):
+#         print(f"Fetching data from MongoDB with query: {query}")
 
-# Test the Database implementations
-mysql_db = MySQLDatabase()
-mysql_db.connect()
-mysql_db.fetch("SELECT * FROM users")
-mysql_db.close()
-mongo_db = MongoDBDatabase()
-mongo_db.connect()
-mongo_db.fetch("{ find: 'users' }")
-mongo_db.close()
+#     def close(self):
+#         print("MongoDB Database connection closed")
 
-
-            
+# # Test the Database implementations
+# mysql_db = MySQLDatabase()
+# mysql_db.connect()
+# mysql_db.fetch("SELECT * FROM users")
+# mysql_db.close()
+# mongo_db = MongoDBDatabase()
+# mongo_db.connect()
+# mongo_db.fetch("{ find: 'users' }")
+# mongo_db.close()
 
 
+# #todo: =================================File Handling====================================================== 
+
+#?file handling is a mechanism for storing data permanently on a storage device like a hard drive or SSD. It allows you to create, read, update, and delete files on your computer using programming languages like Python.
+# In Python, you can handle files using built-in functions and methods. Here are some common operations:
+
+# #?1. Opening a file 
+# file = open("example.txt", "r")  # Open a file in read mode
+
+# #?2. Reading from a file
+# content = file.read()  # Read the entire content of the file
+# print(content)
+
+# #?3. Writing to a file
+# file = open("example.txt", "w")  # Open a file in write mode
+# file.write("Hello, World!")  # Write data to the file
+
+# #?4. Closing a file
+# file.close()  # Close the file to free up resources
+
+# #?5. Using 'with' statement for file handling
+# with open("example.txt", "r") as file:
+#     content = file.read()
+#     print(content)
+#?The 'with' statement automatically handles closing the file for you, even if an error occurs while working with the file.
+
+#example:
+# with open("sample.txt", "w") as f:     #?this will create a file named sample.txt in write mode
+#     f.write("This is a sample file.\nIt contains multiple lines of text.")
+# with open("sample.txt", "r") as f:
+#     content = f.read()
+#     print(content)
+
+
+# file = open('sample.txt','r')
+# content = file.read()
+# print(content)
+# file.close()
+
+# file = open('sample.txt','a')  #?append mode
+# file.write("\nThis line is appended to the file.")
+# file.close()
+
+# file = open('sample.txt','w') #?write mode
+# file.write("This will overwrite the existing content.")
+# file.close()
+
+# file = open('sample.txt','r') 
+# content = file.read()
+# print(content)  
+
+#?To create a new file in Python, you can use the open() function with the 'w' (write) mode or 'x' (exclusive creation) mode. If the file does not exist, it will be created. If it already exists, using 'w' will overwrite the existing file, while 'x' will raise a FileExistsError. 
+
+
+#todo: rb mode:
+#?In Python, 'rb' mode stands for "read binary" mode. It is used when you want to read binary files, such as images, audio files, or any other non-text files. When you open a file in 'rb' mode, the data is read as raw bytes, which is essential for binary files to ensure that the data is not altered during the reading process.
+
+# file = open("Gemini_generated.png",'rb')   #?open the binary file in read binary mode
+# print(file.read())
+
+#this will not open the img file in a viewable format, it will display the binary data of the file. To view the image, you would typically use an image viewer or a library that can handle image files, such as PIL (Pillow) in Python.
+
+
+#todo: wb mode:
+#?In Python, 'wb' mode stands for "write binary" mode. It is used when you want to write binary data to a file, such as images, audio files, or any other non-text files. When you open a file in 'wb' mode, the data is written as raw bytes, which is essential for binary files to ensure that the data is not altered during the writing process.
+
+# f1 = open('new_img.png',"wb")
+# for i in file:
+#     f1.write(i)
+
+# file.close()
+# f1.close()
+
+# #todo: Assignment1: User Data Reader
+#Problem Description 
+#you are working on a backend system that stores registered user data in a text file.
+#the file users.txt contains user records in the following format:
+# 101,Amit,amit@gmail.com
+# 102,Neha,neha@gmail.com
+# 103,Ravi,ravi@gmail.com
+
+#Tasks
+#1 open the file using read mode(r)
+#2 Read the entire content
+#3 Display each user record line by line'
+#4 Ensure the file is properly closed 
+
+# file = open('users.txt','w')
+# file.write("101,Amit,amit@gmail.com\n102,Neha,neha@gmail.com\n103,Ravi,ravi@gmail.com")
+# file.close()
+# file = open('users.txt','r')   #1
+# content = file.read()          #2
+# for line in content.split('\n'):  #3     #?line is used to iterate through each line of the content
+#     print(line)  # Display each user record line by line
+# file.close()  #4
+
+
+# #todo: Assignment2: Server Log Analyzer(Reading lie by line)
+#Problem Statement: A backend server generates a log file server.log
+#each line represents one server request:
+#INFO: Request received
+#ERROR: Database connection failed
+#INFO: Request processed successfully
+#ERROR: Timeout occurred
+
+#Tasks:
+#1 read the line by line
+#2 Count:
+#   a. total log entries
+#   b. total error entries
+#3 Display the count Summary
+
+# total_log = 0
+# error_log = 0
+# file = open('server.log','w')
+# file.write("INFO: Request received\nERROR: Database connection failed\nINFO: Request processed successfully\nERROR: Timeout occurred")
+# file.close()
+
+# file = open('server.log','r')   #1
+# for line in file:                #1
+#     total_log += 1               #2a
+#     if "ERROR" in line:          #2b
+#         error_log += 1
+
+# print(f"Total log entries: {total_log}")
+# print(f"Total error entries: {error_log}")
+# file.close()
 
 
 
 
+# #todo: Assignment3: Student Registration System(w)
+# Problem Description:
+# you are building a student registration module 
+#Tasks:
+#1 Ask the user to enter:Student ID, Name, Course
+#2 write the data into students.txt
+#3 Each student record should be on a new line
+#4 If the file already exists, it should be overwritten with new data
+
+# with open('students.txt','a') as file:   #3 (append new records)
+#     count = int(input("How many students to register? "))
+#     for _ in range(count):  
+#         user = input("Enter Student ID, Name, Course : ") 
+#         file.write(user + "\n")                  
 
 
 
+# #todo: Assignment4: File Append- Feedback Collector(a)
+#Problem Description: your application collects user feedback and store it in feedback.txt
+#Tasks:
+#1 Append new feedback to the file
+#2 Ensure old feedback is not deleted
+#3 Add a timestamp before each feedback entry
 
+from datetime import datetime
+with open('feedback.txt','a') as file:
+    feedback = input("Enter your feedback: ")
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    file.write(f"{timestamp} - {feedback}\n")
+
+   

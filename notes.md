@@ -672,3 +672,15 @@ class Student:
         if value < 0:
             raise ValueError("Marks cannot be negative")
         self._marks = value
+
+
+12)In VS Code, Alt + Z 👉 toggles Word Wrap ✨
+
+What that means
+
+ON: Long lines wrap to the next line so you don’t have to scroll sideways
+
+OFF: Lines stay in one row → horizontal scrolling comes back
+
+
+
